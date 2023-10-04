@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Create Your Stay and Play Account</h1>
 
@@ -8,11 +7,10 @@
 
 <!-- signup form -->
 <form method="POST" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}">
-    <button type="submit" class="btn">Sign Up</button>
-
+  {% csrf_token %} {{ form.as_p }}
+  <input type="hidden" name="next" value="{{ next }}" />
+  <button type="submit" class="btn">Sign Up</button>
+</form>
 <h3><a href="{% url 'login' %}">Already have an Account?</a></h3>
 
 {% endblock %}
