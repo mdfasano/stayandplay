@@ -24,7 +24,6 @@ def dogs_index(request):
                       'dogs': dogs,
                   })
 
-
 @login_required
 def dogs_detail(request, dog_id):
     service_form = ServiceForm()
