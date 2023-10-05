@@ -11,8 +11,8 @@
     <p>Notes: {{ dog.notes }}</p>
   </div>
   <div class="card-action">
-    <a href="{% url 'dogs_update' dog.id %}">Edit</a>
-    <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
+    <a class="button-floating" href="{% url 'dogs_update' dog.id %}"><i class="material-icons">edit</i></a>
+    <a class="button-floating" href="{% url 'dogs_delete' dog.id %}"><i class="material-icons">delete</i></a>
   </div>
 </div>
 
@@ -21,7 +21,22 @@
     <span class="card-title">{{ dog.Name }} Services:</span>
     {% for service in dog.service_set.all %}
       <p>{{ service.name }}</p>
+      <form method="POST" action="{% url 'services_delete' service.id %}">
+        {% csrf_token %}
+        <input type="submit" class="material-icons" value="delete">
+      </form>
     {% endfor %}
+
+    <div class="card-title">
+      <br>
+      add new service:
+      <br>
+    </div>
+    <form action="{% url 'add_service' dog.id %}" method="POST">
+      {% csrf_token %}
+      {{ service_form.as_p }}
+      <input type="submit" class="material-icons" value="add">
+    </form>
   </div>
 </div>
 
