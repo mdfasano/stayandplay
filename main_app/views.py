@@ -15,7 +15,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
+@login_required
 def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html',
@@ -35,11 +35,11 @@ class DogCreate(LoginRequiredMixin, CreateView):
     fields = '__all__'
     success_url = '/dogs/'
 
-class DogUpdate(UpdateView):
+class DogUpdate(LoginRequiredMixin, UpdateView):
   model = Dog
   fields = ['breed', 'weight', 'notes']
 
-class DogDelete(DeleteView):
+class DogDelete(LoginRequiredMixin, DeleteView):
   model = Dog
   success_url = '/dogs'
 
