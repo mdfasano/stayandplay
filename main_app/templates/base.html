@@ -24,7 +24,7 @@
 
             {% if user.is_authenticated %}            
               <li><a href="{% url 'dogs_create' %}">Add a Dog</a></li>
-              <li><a href="{% url 'index'%}">Dogs</a></li>
+              <li><a href="{% url 'index' %}">Dogs</a></li>
               <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
               <li><a href="{% url 'login' %}">Log In</a></li>
@@ -35,6 +35,11 @@
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer">
+      {% if user.is_authenticated %} 
+      <div class="left">
+        &nbsp;Logged in as: <span class="grey">{{ user.username }}</span>
+      </div>
+      {% endif %}
       <div class="right">
         All Rights Reserved, <a id='admin' href=/admin>&copy;</a> 2023 Stay and Play &nbsp;
       </div>

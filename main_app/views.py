@@ -2,7 +2,7 @@ import os
 import uuid
 import boto3
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -18,7 +18,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
+@login_required
 def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html',
@@ -37,6 +37,14 @@ class DogCreate(LoginRequiredMixin, CreateView):
     model = Dog
     fields = '__all__'
     success_url = '/dogs/'
+
+class DogUpdate(LoginRequiredMixin, UpdateView):
+  model = Dog
+  fields = ['breed', 'weight', 'notes']
+
+class DogDelete(LoginRequiredMixin, DeleteView):
+  model = Dog
+  success_url = '/dogs'
 
 @login_required
 def add_photo(request, dog_id):

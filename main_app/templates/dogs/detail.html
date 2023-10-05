@@ -27,6 +27,11 @@
       <br /><br />
       <button type="submit" class="btn">Upload Photo</button>
     </form>
-    {% endblock %}
+  </div>
+  <div class="card-action">
+    <a href="{% url 'dogs_update' dog.id %}">Edit</a>
+    <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
   </div>
 </div>
+
+{% endblock %}
