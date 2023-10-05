@@ -71,6 +71,7 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+@login_required
 def add_service(request, dog_id):
     form = ServiceForm(request.POST)
     if form.is_valid():
