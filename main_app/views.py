@@ -36,8 +36,12 @@ def dogs_detail(request, dog_id):
 
 class DogCreate(LoginRequiredMixin, CreateView):
     model = Dog
-    fields = '__all__'
+    fields = ['name', 'breed', 'weight', 'notes']
     success_url = '/dogs/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class DogUpdate(LoginRequiredMixin, UpdateView):
   model = Dog
@@ -67,6 +71,7 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+@login_required
 def add_service(request, dog_id):
     form = ServiceForm(request.POST)
     if form.is_valid():

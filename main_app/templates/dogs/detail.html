@@ -22,13 +22,20 @@
     {% for service in dog.service_set.all %}
       <p>{{ service.name }}</p>
       <form method="POST" action="{% url 'services_delete' service.id %}">
-        {% csrf_token %}<input type="submit" value="DELETE">
+        {% csrf_token %}
+        <input type="submit" class="material-icons" value="delete">
       </form>
     {% endfor %}
+
+    <div class="card-title">
+      <br>
+      add new service:
+      <br>
+    </div>
     <form action="{% url 'add_service' dog.id %}" method="POST">
       {% csrf_token %}
       {{ service_form.as_p }}
-      <input type="submit" class="btn" value="Add New Service">
+      <input type="submit" class="material-icons" value="add">
     </form>
   </div>
 </div>
