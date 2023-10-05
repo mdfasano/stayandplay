@@ -36,8 +36,12 @@ def dogs_detail(request, dog_id):
 
 class DogCreate(LoginRequiredMixin, CreateView):
     model = Dog
-    fields = '__all__'
+    fields = ['breed', 'weight', 'notes', 'name']
     success_url = '/dogs/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class DogUpdate(LoginRequiredMixin, UpdateView):
   model = Dog
