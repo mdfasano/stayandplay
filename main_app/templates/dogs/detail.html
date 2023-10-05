@@ -16,4 +16,13 @@
   </div>
 </div>
 
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ dog.Name }} Services:</span>
+    {% for service in dog.service_set.all %}
+      <p>{{ service.name }}</p>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}
