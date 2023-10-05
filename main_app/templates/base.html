@@ -15,7 +15,7 @@
   <body>
     <header class="navbar-fixed">
       <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper teal lighten-2">
           <ul>
             <li>
               <a href="{% url 'home'%}" class="left brand-logo">&nbsp;&nbsp;Stay and Play</a>
@@ -36,13 +36,13 @@
       </nav>
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer">
+    <footer class="page-footer teal lighten-2">
       {% if user.is_authenticated %} 
-      <div class="left">
+      <div class="left teal lighten-2">
         &nbsp;Logged in as: <span class="grey">{{ user.username }}</span>
       </div>
       {% endif %}
-      <div class="right">
+      <div class="right teal lighten-2">
         All Rights Reserved, <a id='admin' href=/admin>&copy;</a> 2023 Stay and Play &nbsp;
       </div>
     </footer>
