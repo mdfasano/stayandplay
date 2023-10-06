@@ -21,11 +21,9 @@ def about(request):
 
 @login_required
 def dogs_index(request):
-    dogs = Dog.objects.all()
-    return render(request, 'dogs/index.html',
-                  {
-                      'dogs': dogs,
-                  })
+    # dogs = Dog.objects.all()
+    dogs = Dog.objects.filter(user=request.user)
+    return render(request, 'dogs/index.html',{'dogs': dogs })
 
 @login_required
 def dogs_detail(request, dog_id):
