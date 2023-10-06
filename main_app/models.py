@@ -43,3 +43,6 @@ class Service(models.Model):
     def __str__(self):
     # Nice method for obtaining the friendly value of a Field.choice
         return f"{self.get_name_display()} on {self.date}"
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'dog_id': self.dog.id})

@@ -53,6 +53,7 @@
         {% csrf_token %}
         <input type="submit" class="material-icons" value="delete">
         </form>
+        <a class="material-icons" href="{% url 'services_update' service.id %}">edit</a>
       {% endfor %}
 
     <div class="card-title">
