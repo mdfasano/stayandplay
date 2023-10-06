@@ -32,13 +32,12 @@ class Photo(models.Model):
         return f"Photo for dog_id: {self.dog_id} @{self.url}"
 
 class Service(models.Model):
+    date = models.DateField('service date')
     name = models.CharField(
         max_length=1,
         choices=SERVICES,
         default=SERVICES[0][0]
     )
-    date = models.DateField('feeding date')
-
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
 
     def __str__(self):
