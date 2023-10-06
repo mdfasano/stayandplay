@@ -21,11 +21,9 @@ def about(request):
 
 @login_required
 def dogs_index(request):
-    dogs = Dog.objects.all()
-    return render(request, 'dogs/index.html',
-                  {
-                      'dogs': dogs,
-                  })
+    # dogs = Dog.objects.all()
+    dogs = Dog.objects.filter(user=request.user)
+    return render(request, 'dogs/index.html',{'dogs': dogs })
 
 @login_required
 def dogs_detail(request, dog_id):
@@ -47,8 +45,15 @@ class DogCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class DogUpdate(LoginRequiredMixin, UpdateView):
-  model = Dog
-  fields = ['breed', 'weight', 'notes']
+    model = Dog
+    fields = ['breed', 'weight', 'notes']
+
+    def form_valid(self, form):
+        if self.object.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            # possibly make an error rendering page for cases like this
+            return render(self.request, 'home.html')
 
 class DogDelete(LoginRequiredMixin, DeleteView):
   model = Dog
@@ -111,3 +116,7 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
             'detail',
             kwargs = {'dog_id': dog_id}
         )
+
+class ServiceUpdate(LoginRequiredMixin, UpdateView):
+    model = Service
+    fields = ['date', 'name']
