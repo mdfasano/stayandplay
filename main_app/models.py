@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+SERVICES = (
+    ('B', 'Bath'),
+    ('W', 'Walk'),
+    ('T', 'Treat'),
+    ('P', 'Playtime')
+)
+
 class Dog(models.Model):
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
@@ -25,8 +32,15 @@ class Photo(models.Model):
         return f"Photo for dog_id: {self.dog_id} @{self.url}"
 
 class Service(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(
+        max_length=1,
+        choices=SERVICES,
+        default=SERVICES[0][0]
+    )
+    date = models.DateField('feeding date')
+
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+    # Nice method for obtaining the friendly value of a Field.choice
+        return f"{self.get_name_display()} on {self.date}"
