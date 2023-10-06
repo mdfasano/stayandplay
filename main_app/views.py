@@ -111,3 +111,7 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
             'detail',
             kwargs = {'dog_id': dog_id}
         )
+
+class ServiceUpdate(LoginRequiredMixin, UpdateView):
+    model = Service
+    fields = ['date', 'name']

@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% if object %}
+  <h1>Edit Service</h1>
+{% else %}
+  <h1>Add Service</h1>
+{% endif %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Submit!" class="btn" />
+</form>
+
+<script>
+    // set up datepicker
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+    // set up service select dropdown
+    const selectEl = document.getElementById('id_name');
+    M.FormSelect.init(selectEl);
+  </script>
+{% endblock %}
