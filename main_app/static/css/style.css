@@ -14,8 +14,12 @@ main {
   flex: 1 0 auto;
 }
 
-form {
+.card { 
   background-color: white;
+}
+
+#searchbar {
+  padding-left: 30px;
 }
 
 footer.page-footer {
