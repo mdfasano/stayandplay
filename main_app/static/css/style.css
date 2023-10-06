@@ -14,6 +14,9 @@ main {
   flex: 1 0 auto;
 }
 
+form {
+  background-color: white;
+}
 
 footer.page-footer {
   padding-top: 0;

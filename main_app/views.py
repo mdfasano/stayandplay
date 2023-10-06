@@ -1,3 +1,6 @@
+import os
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -5,7 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Dog, Service
+from .models import Dog, Service, Photo
 from .forms import ServiceForm
 
 # Create your views here.
@@ -51,6 +54,25 @@ class DogDelete(LoginRequiredMixin, DeleteView):
   model = Dog
   success_url = '/dogs'
 
+@login_required
+def add_photo(request, dog_id):
+    # photo-file maps to the "name" attr on the <input>
+    photo_file = request.FILES.get("photo-file", None)
+    if photo_file:
+        s3 = boto3.client("s3")
+        # Need a unique "key" (filename)
+        # It needs to keep the same file extension
+        # of the file that was uploaded (.png, .jpeg, etc.)
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind(".") :]
+        try:
+            bucket = os.environ["S3_BUCKET"]
+            s3.upload_fileobj(photo_file, bucket, key)
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            Photo.objects.create(url=url, dog_id=dog_id)
+        except Exception as e:
+            print("An error occurred uploading file to S3")
+            print(e)
+    return redirect("detail", dog_id=dog_id)
 
 def signup(request):
     error_message = ''
@@ -86,6 +108,6 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         dog_id = self.object.dog_id
         return reverse(
-            'detail', 
+            'detail',
             kwargs = {'dog_id': dog_id}
         )

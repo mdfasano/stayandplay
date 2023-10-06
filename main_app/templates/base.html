@@ -11,10 +11,20 @@
     <!-- this allows us to get some pretty buttons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
   <body>
     <header class="navbar-fixed">
       <nav>
+        <div class="nav-wrapper teal lighten 4">
+          <form>
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
         <div class="nav-wrapper teal lighten-2">
           <ul>
             <li>
