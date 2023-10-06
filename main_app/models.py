@@ -32,7 +32,7 @@ class Photo(models.Model):
         return f"Photo for dog_id: {self.dog_id} @{self.url}"
 
 class Service(models.Model):
-    date = models.DateField('feeding date')
+    date = models.DateField('service date')
     name = models.CharField(
         max_length=1,
         choices=SERVICES,
