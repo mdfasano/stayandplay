@@ -47,7 +47,8 @@
     <div class="card-content">
      <span class="card-title">{{ dog.Name }} Services:</span>
       {% for service in dog.service_set.all %}
-        <p>{{ service.name }}</p>
+        <p>{{ service.get_name_display }}</p>
+        <p>{{ service.date }}</p>
         <form method="POST" action="{% url 'services_delete' service.id %}">
         {% csrf_token %}
         <input type="submit" class="material-icons" value="delete">
@@ -67,4 +68,17 @@
   </div>
 </div>
 
+<script>
+  // set up datepicker
+  const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  // set up service select dropdown
+  const selectEl = document.getElementById('id_name');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
