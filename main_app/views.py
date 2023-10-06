@@ -47,8 +47,15 @@ class DogCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class DogUpdate(LoginRequiredMixin, UpdateView):
-  model = Dog
-  fields = ['breed', 'weight', 'notes']
+    model = Dog
+    fields = ['breed', 'weight', 'notes']
+
+    def form_valid(self, form):
+        if self.object.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            # possibly make an error rendering page for cases like this
+            return render(self.request, 'home.html')
 
 class DogDelete(LoginRequiredMixin, DeleteView):
   model = Dog
