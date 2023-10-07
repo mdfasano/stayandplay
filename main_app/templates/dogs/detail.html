@@ -4,8 +4,31 @@
 <div class="row">
   <div class="col s4">
     <div class="card">
+      <div class="card-image">
+        {% for photo in dog.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{photo.url}}" />
+        {% empty %}
+        <div class="card">
+          <br>
+          <h5> <center>  No Photo Uploaded for {{dog.name}} </center> </h5>
+          <div class="card-content">
+            <form
+               action="{% url 'add_photo' dog.id %}"
+               enctype="multipart/form-data"
+               method="POST"
+               class="card-panel"
+            >
+              {% csrf_token %}
+              <input type="file" name="photo-file" />
+              <br /><br />
+              <button type="submit" class="btn">Upload Photo</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+        <span class="card-title">&nbsp {{ dog.name }}</span>
+      </div>
       <div class="card-content">
-        <span class="card-title">{{ dog.name }}</span>
         <p>Breed: {{ dog.breed }}</p>
         <p>Weight: {{ dog.weight }}</p>
         <p>Notes: {{ dog.notes }}</p>
@@ -17,28 +40,13 @@
     </div>
   </div>
   <div class="col s4">
-  {% for photo in dog.photo_set.all %}
-  <img class="responsive-img card-panel" src="{{photo.url}}" />
-  {% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-  {% endfor %}
+
   </div>
   <div class="col s4">
-    <div class="card">
-      <div class="card-content">
-        <form
-           action="{% url 'add_photo' dog.id %}"
-           enctype="multipart/form-data"
-           method="POST"
-           class="card-panel"
-        >
-          {% csrf_token %}
-          <input type="file" name="photo-file" />
-          <br /><br />
-          <button type="submit" class="btn">Upload Photo</button>
-        </form>
-      </div>
-    </div>
+
+
+
+
   </div>
 </div>
 
