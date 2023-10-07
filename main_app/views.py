@@ -125,7 +125,7 @@ class ServiceUpdate(LoginRequiredMixin, UpdateView):
 def searchbar(request):
     query = request.GET.get('query', '')
     matches = []
-
-    matches = Dog.objects.filter(name=query)
+    matches = Dog.objects.filter(user=request.user)
+    matches = matches.filter(name=query)
     
     return render(request, 'dogs/index.html', {'dogs': matches } )
