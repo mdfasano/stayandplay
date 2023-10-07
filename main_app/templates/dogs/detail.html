@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Dog Details</h1>
+<h2>Dog Details</h2>
 <div class="row">
-  <div class="col s4">
+  <div class="col s6">
     <div class="card">
       <div class="card-image">
         {% for photo in dog.photo_set.all %}
@@ -39,55 +39,44 @@
       </div>
     </div>
   </div>
-  <div class="col s4">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ dog.Name }} Services:</span>
+        {% for service in dog.service_set.all %}
+          <p>{{ service.get_name_display }}</p>
+          <p>{{ service.date }}</p>
+          <form method="POST" action="{% url 'services_delete' service.id %}">
+          {% csrf_token %}
+          <input type="submit" class="material-icons" value="delete">
+          </form>
+          <a class="material-icons" href="{% url 'services_update' service.id %}">edit</a>
+        {% endfor %}
 
-  </div>
-  <div class="col s4">
-
-
-
-
-  </div>
-</div>
-
-<div class="row">
-  <div class="card">
-    <div class="card-content">
-     <span class="card-title">{{ dog.Name }} Services:</span>
-      {% for service in dog.service_set.all %}
-        <p>{{ service.get_name_display }}</p>
-        <p>{{ service.date }}</p>
-        <form method="POST" action="{% url 'services_delete' service.id %}">
+      <div class="card-title">
+        <br>
+        add new service:
+        <br>
+      </div>
+      <form action="{% url 'add_service' dog.id %}" method="POST">
         {% csrf_token %}
-        <input type="submit" class="material-icons" value="delete">
-        </form>
-        <a class="material-icons" href="{% url 'services_update' service.id %}">edit</a>
-      {% endfor %}
-
-    <div class="card-title">
-      <br>
-      add new service:
-      <br>
+        {{ service_form.as_p }}
+        <input type="submit" class="material-icons" value="add">
+      </form>
     </div>
-    <form action="{% url 'add_service' dog.id %}" method="POST">
-      {% csrf_token %}
-      {{ service_form.as_p }}
-      <input type="submit" class="material-icons" value="add">
-    </form>
   </div>
-</div>
-
-<script>
-  // set up datepicker
-  const dateEl = document.getElementById('id_date');
-  M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
-  });
-  // set up service select dropdown
-  const selectEl = document.getElementById('id_name');
-  M.FormSelect.init(selectEl);
-</script>
+  <script>
+    // set up datepicker
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+    // set up service select dropdown
+    const selectEl = document.getElementById('id_name');
+    M.FormSelect.init(selectEl);
+  </script>
+</div>  
 {% endblock %}
