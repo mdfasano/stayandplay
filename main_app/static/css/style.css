@@ -14,7 +14,7 @@ main {
   flex: 1 0 auto;
 }
 
-.card { 
+.card, tbody, .whitebg { 
   background-color: white;
 }
 
