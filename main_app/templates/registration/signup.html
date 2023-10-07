@@ -1,16 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Create Your Stay and Play Account</h1>
+<h2 class="whitebg">Create Your Account</h2>
 
 <!-- signup errors get rendered here -->
-<p class="red-text">{{ error_message }}</p>
+<p class="whitebg" class="red-text">{{ error_message }}</p>
 
 <!-- signup form -->
-<form method="POST" action="{% url 'signup' %}">
+<form class="whitebg" method="POST" action="{% url 'signup' %}">
   {% csrf_token %} {{ form.as_p }}
   <input type="hidden" name="next" value="{{ next }}" />
   <button type="submit" class="btn">Sign Up</button>
 </form>
-<h3><a href="{% url 'login' %}">Already have an Account?</a></h3>
+<h2 class="whitebg"><a href="{% url 'login' %}">Already have an Account?</a></h2>
 
 {% endblock %}

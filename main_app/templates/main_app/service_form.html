@@ -1,12 +1,12 @@
 {% extends 'base.html' %} 
 {% block content %} 
 {% if object %}
-  <h1>Edit Service</h1>
+  <h2>Edit Service</h2>
 {% else %}
-  <h1>Add Service</h1>
+  <h2>Add Service</h2>
 {% endif %}
 
-<form action="" method="POST">
+<form class="whitebg" method="POST">
   {% csrf_token %}
   <table>
     {{ form.as_table }}
