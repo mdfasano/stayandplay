@@ -120,3 +120,12 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
 class ServiceUpdate(LoginRequiredMixin, UpdateView):
     model = Service
     fields = ['date', 'name']
+
+@login_required
+def searchbar(request):
+    query = request.GET.get('query', '')
+    matches = []
+    matches = Dog.objects.filter(user=request.user)
+    matches = matches.filter(name=query)
+    
+    return render(request, 'dogs/index.html', {'dogs': matches } )
