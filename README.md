@@ -1,5 +1,7 @@
 ## Stay and Play
 
+Stay and play is a dog tracking app that tracks dog information as well as scheduled services for each dog Information is displayed on easily accessible cards.
+
 ## Screenshots
 
 ![Login](https://i.imgur.com/nQLF8th.png)
