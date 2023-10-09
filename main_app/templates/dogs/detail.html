@@ -59,13 +59,13 @@
         add new service:
         <br>
       </div>
-              <form action="{% url 'add_service' dog.id %}" method="POST">
-                {% csrf_token %}
-                {{ service_form.as_p }}
-                <input type="submit" class="material-icons" value="add">
-              </form>
-          </div>
-        </div>
+      <form action="{% url 'add_service' dog.id %}" method="POST">
+        {% csrf_token %}
+        {{ service_form.as_p }}
+        <input type="submit" class="material-icons" value="add">
+      </form>
+    </div>
+  </div>
   <script>
     // set up datepicker
     const dateEl = document.getElementById('id_date');
