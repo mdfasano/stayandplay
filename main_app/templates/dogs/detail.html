@@ -7,6 +7,7 @@
       <div class="card-image">
         {% for photo in dog.photo_set.all %}
         <img class="responsive-img card-panel" src="{{photo.url}}" />
+        <a class="btn-floating halfway-fab orange.accent-2" href="{% url 'del_photo' dog.id %}"><i class="material-icons">delete</i></a>
         {% empty %}
         <div class="card">
           <br>
@@ -58,13 +59,13 @@
         add new service:
         <br>
       </div>
-      <form action="{% url 'add_service' dog.id %}" method="POST">
-        {% csrf_token %}
-        {{ service_form.as_p }}
-        <input type="submit" class="material-icons" value="add">
-      </form>
-    </div>
-  </div>
+              <form action="{% url 'add_service' dog.id %}" method="POST">
+                {% csrf_token %}
+                {{ service_form.as_p }}
+                <input type="submit" class="material-icons" value="add">
+              </form>
+          </div>
+        </div>
   <script>
     // set up datepicker
     const dateEl = document.getElementById('id_date');

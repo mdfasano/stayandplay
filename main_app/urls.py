@@ -13,6 +13,7 @@ urlpatterns = [
     path('dogs/<int:pk>/delete_service', views.ServiceDelete.as_view(), name='services_delete'),
     path('dogs/<int:dog_id>/add_service', views.add_service, name='add_service'),
     path('dogs/<int:dog_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('dogs/<int:dog_id>/del_photo/', views.del_photo, name='del_photo'),
     path('dogs/<int:pk>/update_service/', views.ServiceUpdate.as_view(), name='services_update'),
     path('searchbar/', views.searchbar, name='searchbar'),
 ]

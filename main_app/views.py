@@ -1,4 +1,5 @@
 import os
+import re
 import uuid
 import boto3
 from django.shortcuts import render, redirect
@@ -77,6 +78,35 @@ def add_photo(request, dog_id):
         except Exception as e:
             print("An error occurred uploading file to S3")
             print(e)
+    return redirect("detail", dog_id=dog_id)
+
+@login_required
+def del_photo(request, dog_id):
+    client = boto3.client('s3')
+    bucket = os.environ["S3_BUCKET"]
+    photo = Photo.objects.get(dog_id=dog_id)
+
+    # Delete from postgres
+    photo.delete()
+
+    # Delete from AWS
+    # photo.url looks like this: 
+    #   https://s3.us-east-2.amazonaws.com/stayandplay/c74742.png
+    # Grab only the part at the end: 
+    #   stayandplay/c74742.png
+    # Finally, skip over 'stayandplay/' to get:
+    #   c74742.png
+    x = re.search('stayandplay/.*$',photo.url)
+    filename = x.group()[12:]
+
+    try:
+        client.delete_object(
+            Bucket=bucket,
+            Key=filename
+        )
+    except Exception as ex:
+        print(str(ex))
+
     return redirect("detail", dog_id=dog_id)
 
 def signup(request):
